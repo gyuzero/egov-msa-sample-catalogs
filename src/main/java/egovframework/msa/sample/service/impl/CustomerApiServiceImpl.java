@@ -17,8 +17,8 @@ public class CustomerApiServiceImpl implements CustomerApiService {
 	@Override
 	@HystrixCommand(fallbackMethod = "getCustomerDetailFallback") // fallback 메소드는 customers 서비스가 에러 또는 지연될 경우 곧 바로 fallback 메소드를 호출하여 에러 전파를 방지한다.
 	public String getCustomerDetail(String customerId) {
-		throw new RuntimeException("I/O Exception"); // customers 서비스에 강제로 Exception 발생
-		// return restTemplate.getForObject("http://localhost:8082/customers/" + customerId, String.class);
+		// throw new RuntimeException("I/O Exception"); // customers 서비스에 강제로 Exception 발생
+		return restTemplate.getForObject("http://customer/customers/" + customerId, String.class);
 	}
 	
 	public String getCustomerDetailFallback(String customerId, Throwable ex) {
